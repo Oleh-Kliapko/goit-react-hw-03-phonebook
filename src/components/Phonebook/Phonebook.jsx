@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Notification } from '../../utils/notification';
 import { theme } from '../../utils/theme';
 import { nanoid } from 'nanoid';
 import { Box } from '../Box';
+import { Notification } from '../../utils/notification';
 import { WrapperPhonebook, WrapperContacts } from './Phonebook.styled';
 import { ContactForm } from '../ContactForm/ContactForm';
 import { ContactsList } from '../ContactsList/ContactsList';
@@ -19,6 +19,21 @@ export class Phonebook extends Component {
     contacts: this.props.initialContacts,
     filter: this.props.initialFilter,
   };
+
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  }
+
+  componentDidUpdate(prevState) {
+    const currentContacts = this.state.contacts;
+    if (currentContacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(currentContacts));
+    }
+  }
 
   addContacts = ({ name, number }) => {
     const addedName = name;
