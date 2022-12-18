@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { theme } from '../../utils/theme';
-import { nanoid } from 'nanoid';
 import { Box } from '../Box';
 import { Notification } from '../../utils/notification';
 import { WrapperPhonebook, WrapperContacts } from './Phonebook.styled';
@@ -35,7 +34,7 @@ export class Phonebook extends Component {
     }
   }
 
-  addContacts = ({ name, number }) => {
+  addContacts = ({ id, name, number }) => {
     const addedName = name;
 
     for (const contact of this.state.contacts) {
@@ -45,7 +44,6 @@ export class Phonebook extends Component {
       }
     }
 
-    const id = nanoid(4);
     this.setState(({ contacts }) => ({
       contacts: [...contacts, { id, name, number }],
     }));

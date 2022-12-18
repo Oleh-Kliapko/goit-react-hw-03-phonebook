@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid';
 
 export const ContactsList = ({ contacts, removeContact }) => {
   return contacts.map(({ id, name, number }) => (
-    <Item key={nanoid(5)}>
+    <Item key={id ? id : nanoid(4)}>
       {name}: {number}
       <DeleteButton type="button" onClick={() => removeContact(id)}>
         Delete
