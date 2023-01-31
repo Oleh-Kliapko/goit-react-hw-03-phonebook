@@ -36,14 +36,15 @@ export class Phonebook extends Component {
   }
 
   addContacts = ({ id, name, number }) => {
-    const addedName = name;
+    const isFindName = this.state.contacts.find(
+      contact => contact.name === name
+    );
 
-    for (const contact of this.state.contacts) {
-      if (addedName === contact.name) {
-        Notification(addedName);
-        return;
-      }
+    if (isFindName) {
+      Notification(name);
+      return;
     }
+
     id = nanoid(4);
     this.setState(({ contacts }) => ({
       contacts: [...contacts, { id, name, number }],
